@@ -1,31 +1,67 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 
-export default function Experience() {
-  const [dateRange, setDateRange] = useState([
+export default function Experience({ formData, setFormData }) {
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      Experience: {
+        ...formData.Experience,
+        [e.target.name]: e.target.value
+      }
+    });
+  };
+
+  const handleDateChange = (item) => {
+    setFormData({
+      ...formData,
+      Experience: {
+        ...formData.Experience,
+        startDate: item.selection.startDate,
+        endDate: item.selection.endDate
+      }
+    });
+  };
+
+  const dateRange = [
     {
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: formData.Experience.startDate || new Date(),
+      endDate: formData.Experience.endDate || new Date(),
       key: 'selection'
     }
-  ]);
+  ];
 
   return (
     <form>
-      <input type="text" id="companyName" placeholder="Company Name" />
-      <input type="text" id="position" placeholder="Position" />
-      <input type="text" id="responsibilities" placeholder="Responsibilities" />
+      <input
+        type="text"
+        name="companyName"
+        placeholder="Company Name"
+        value={formData.Experience.companyName || ''}
+        onChange={handleChange}
+      />
+      <input
+        type="text"
+        name="position"
+        placeholder="Position"
+        value={formData.Experience.position || ''}
+        onChange={handleChange}
+      />
+      <input
+        type="text"
+        name="responsibilities"
+        placeholder="Responsibilities"
+        value={formData.Experience.responsibilities || ''}
+        onChange={handleChange}
+      />
       <input
         type="text"
         readOnly
         value={`${dateRange[0].startDate.toLocaleDateString()} to ${dateRange[0].endDate.toLocaleDateString()}`}
       />
-      <DateRange
-        onChange={item => setDateRange([item.selection])}
-        ranges={dateRange}
-      />
+      <DateRange onChange={handleDateChange} ranges={dateRange} />
     </form>
   );
 }
