@@ -3,8 +3,9 @@ import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 
-export default function Experience({ formData, setFormData }) {
+export default function Experience({ formData, setFormData, isEditable }) {
   const handleChange = (e) => {
+    
     setFormData({
       ...formData,
       Experience: {
@@ -41,6 +42,7 @@ export default function Experience({ formData, setFormData }) {
         placeholder="Company Name"
         value={formData.Experience.companyName || ''}
         onChange={handleChange}
+        disabled={!isEditable}
       />
       <input
         type="text"
@@ -48,6 +50,7 @@ export default function Experience({ formData, setFormData }) {
         placeholder="Position"
         value={formData.Experience.position || ''}
         onChange={handleChange}
+        disabled={!isEditable}
       />
       <input
         type="text"
@@ -55,13 +58,21 @@ export default function Experience({ formData, setFormData }) {
         placeholder="Responsibilities"
         value={formData.Experience.responsibilities || ''}
         onChange={handleChange}
+        disabled={!isEditable}
       />
       <input
         type="text"
         readOnly
         value={`${dateRange[0].startDate.toLocaleDateString()} to ${dateRange[0].endDate.toLocaleDateString()}`}
+        disabled={!isEditable}
       />
-      <DateRange onChange={handleDateChange} ranges={dateRange} />
+      {isEditable ? (
+        <DateRange onChange={handleDateChange} ranges={dateRange} />
+      ) : (
+        <div style={{ background: '#f0f0f0', borderRadius: '4px' }}>
+          {dateRange[0].startDate.toLocaleDateString()} to {dateRange[0].endDate.toLocaleDateString()}
+        </div>
+      )}
     </form>
   );
 }

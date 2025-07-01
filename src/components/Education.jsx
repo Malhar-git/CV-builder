@@ -1,4 +1,4 @@
-export function Education({formData, setFormData}){
+export function Education({formData, setFormData, isEditable}){
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -15,18 +15,21 @@ export function Education({formData, setFormData}){
         value={formData.Education.schoolName || ''}
         onChange={handleChange}
         placeholder="School Name"
+        disabled={!isEditable}
       />
       <input
         name="fieldOfStudy"
         value={formData.Education.fielOfStudy || ''}
         onChange={handleChange}
         placeholder="fielOfStudy"
+        disabled={!isEditable}
       />
       <input
         name="date"
         value={formData.Education.date || ''}
         onChange={handleChange}
         placeholder="date of study"
+        disabled={!isEditable}
       />
     </div>
   )
