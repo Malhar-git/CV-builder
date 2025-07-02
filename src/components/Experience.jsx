@@ -61,6 +61,7 @@ export default function Experience({ formData, setFormData, isEditable }) {
         disabled={!isEditable}
       />
       <input
+        name="datePeriod"
         type="text"
         readOnly
         value={`${dateRange[0].startDate.toLocaleDateString()} to ${dateRange[0].endDate.toLocaleDateString()}`}

@@ -19,9 +19,9 @@ export function Education({formData, setFormData, isEditable}){
       />
       <input
         name="fieldOfStudy"
-        value={formData.Education.fielOfStudy || ''}
+        value={formData.Education.fieldOfStudy || ''}
         onChange={handleChange}
-        placeholder="fielOfStudy"
+        placeholder="fiedlOfStudy"
         disabled={!isEditable}
       />
       <input
