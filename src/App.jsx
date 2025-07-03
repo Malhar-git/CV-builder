@@ -22,20 +22,24 @@ export function App() {
   };
 
   return (
-    <>
-    <div style={{display: "flex", gap: '2rem'}}>
+    <div className="flex-container" style={{display: "flex", gap: '2rem'}}>
+    <div id="form-pg" style={{flex: 1}}>
       <div style={{flex: 1}}>
+      <h2>Personal Information</h2>
       <PersonalInformation formData={formData} setFormData={setFormData} isEditable={isEditable} />
+      <h2>Education</h2>
       <Education formData={formData} setFormData={setFormData} isEditable={isEditable} />
+      <h2>Experience</h2>
       <Experience formData={formData} setFormData={setFormData} isEditable={isEditable} />
       <Buttons isEditable={isEditable} onSave={handleSave} onEdit={handleEdit} />
       </div>
     </div>
-    <div style={{flex:1, border: '1px solid #ccc', padding: '1rem'}}>
+    <div id="preview-pg" style={{flex:1}}>
       <HeaderPreview formData={formData}></HeaderPreview>
+      <hr></hr>
       <Preview formData={formData}></Preview>
     </div>
-    </>
+    </div>
   );
 }
 

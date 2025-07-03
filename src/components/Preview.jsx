@@ -1,26 +1,24 @@
 import "../App.css";
+import "../styles/preview.module.css"
 
 export function HeaderPreview({formData}){
     const {PersonalInformation} = formData;
     return (
         <div id="preview-header">
             {PersonalInformation.name && (<h1 className= "font-bold text-center">{PersonalInformation.name}</h1>)}
-            <div className="flex justify-center items-center gap-5 flex-wrap">
-                <div className="flex items-center gap-1">
-                    <p>{PersonalInformation.contactNumber}</p>
-                </div>
-                <div className="flex items-center gap-1">
-                    <p>{PersonalInformation.email}</p>
-                </div>
+            <div className="flex justify-center items-center gap-5 flex-wrap" style={{display: "flex", justifyContent: "space-between", alignItems:"center"}}>
+                    <div>{PersonalInformation.email}</div>
+                    <div>{PersonalInformation.contactNumber}</div>      
             </div>
         </div>
-    )
+    );
 }
 export function Preview({formData}){
     const {Education, Experience} = formData;
     return(
-        <div id="preview">
+        <div className="styles.preview">
             <div>
+                <h2><u>Education</u></h2>
                 {Education.schoolName && (<b className="font-itallic text-align-left">{Education.schoolName}</b>)}
                 <div className="flex justify-center items-left gap-5 flex-wrap">
                     <div className="flex items-center gap-1">
@@ -32,6 +30,7 @@ export function Preview({formData}){
                 </div> 
             </div>
             <div>
+                <h2><u>Personal Experience</u></h2>
                 {Experience.companyName && (<b className="font-itallic text-align-left">{Experience.companyName}</b>)}
                 <div className="flex justify-center items-left gap-5 flex-wrap">
                     <div className="flex items-center gap-1">
