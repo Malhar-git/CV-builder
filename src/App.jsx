@@ -8,8 +8,13 @@ import { HeaderPreview, Preview } from './components/Preview';
 
 export function App() {
   const [formData, setFormData] = useState({ PersonalInformation: {}, Experience: {}, Education: {} });
-
   const [isEditable, setIsEditable] = useState(true);
+
+  const [educationCount, setEducationCount] = useState(1);
+  const [experienceCount, setExperienceCount] = useState(1);
+
+  const handleAddEducation = () => setEducationCount(prev => prev + 1);
+  const handleAddExperience = () => setExperienceCount(prev => prev + 1);
 
   const handleSave = () => {
     console.log('Save DATA:', formData);
@@ -37,7 +42,13 @@ export function App() {
     <div id="preview-pg" style={{flex:1}}>
       <HeaderPreview formData={formData}></HeaderPreview>
       <hr></hr>
-      <Preview formData={formData}></Preview>
+      <Preview
+        formData={formData}
+        educationCount={educationCount}
+        experienceCount={experienceCount}
+        onAddEducation={handleAddEducation}
+        onAddExperience={handleAddExperience}
+      />
     </div>
     </div>
   );
