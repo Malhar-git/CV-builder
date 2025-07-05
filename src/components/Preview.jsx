@@ -1,5 +1,4 @@
 import "../App.css";
-import styles from "../styles/preview.module.css";
 
 export function HeaderPreview({formData}) {
     const {PersonalInformation} = formData;
@@ -14,50 +13,31 @@ export function HeaderPreview({formData}) {
     );
 }
 
-export function Preview({
-  formData,
-  educationCount,
-  experienceCount,
-  onAddEducation,
-  onAddExperience
-}) {
-  const { Education, Experience } = formData;
-  const educationSections = Array.from({ length: educationCount });
-  const personalExperience = Array.from({ length: experienceCount });
-
+export function Preview({ formData }) {
+  const { Education = [], Experience = [] } = formData;
   return (
-    <div className={styles.preview}>
-      {educationSections.map((_, idx) => (
-        <div id="education" key={idx}>
-          <h2><u>Education</u></h2>
-          {Education.schoolName && (<b>{Education.schoolName}</b>)}
-          <div>
-            <p>{Education.fieldOfStudy}</p>
-            <p>{Education.date}</p>
+    <div>
+      <div id="education">
+        <h2><u>Education</u></h2>
+        {Education.map((edu, idx) => (
+          <div key={idx}>
+            {edu.schoolName && <b>{edu.schoolName}</b>}
+            <p>{edu.fieldOfStudy}</p>
+            <p>{edu.date}</p>
           </div>
-          {idx === educationSections.length - 1 && (
-            <div className="button-education">
-              <button type="button" onClick={onAddEducation}>Add New</button>
-            </div>
-          )}
-        </div>
-      ))}
-      {personalExperience.map((_, ptr) => (
-        <div id="personalExperience" key={ptr}>
-          <h2><u>Personal Experience</u></h2>
-          {Experience.companyName && (<b>{Experience.companyName}</b>)}
-          <div>
-            <p>{Experience.position}</p>
-            <p>{Experience.responsibilities}</p>
-            <p>{Experience.datePeriod}</p>
+        ))}
+      </div>
+      <div id="personalExperience">
+        <h2><u>Personal Experience</u></h2>
+        {Experience.map((exp, idx) => (
+          <div key={idx}>
+            {exp.companyName && <b>{exp.companyName}</b>}
+            <p>{exp.position}</p>
+            <p>{exp.responsibilities}</p>
+            <p>{exp.datePeriod}</p>
           </div>
-          {ptr === personalExperience.length - 1 && (
-            <div className="button-experience">
-              <button type="button" onClick={onAddExperience}>Add New</button>
-            </div>
-          )}
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,79 +1,67 @@
-import React from 'react';
-import { DateRange } from 'react-date-range';
-import 'react-date-range/dist/styles.css';
-import 'react-date-range/dist/theme/default.css';
+import React, { useState } from 'react';
 
-export default function Experience({ formData, setFormData, isEditable }) {
+export default function Experience({setFormData, isEditable }) {
+  const [expInput, setExpInput] = useState({
+    companyName: '',
+    position: '',
+    responsibilities: '',
+    datePeriod: ''
+  });
+
   const handleChange = (e) => {
-    
-    setFormData({
-      ...formData,
-      Experience: {
-        ...formData.Experience,
-        [e.target.name]: e.target.value
-      }
-    });
+    setExpInput({ ...expInput, [e.target.name]: e.target.value });
   };
 
-  const handleDateChange = (item) => {
-    setFormData({
-      ...formData,
-      Experience: {
-        ...formData.Experience,
-        startDate: item.selection.startDate,
-        endDate: item.selection.endDate
-      }
-    });
-  };
-
-  const dateRange = [
-    {
-      startDate: formData.Experience.startDate || new Date(),
-      endDate: formData.Experience.endDate || new Date(),
-      key: 'selection'
+  const handleAddExperience = () => {
+    if (
+      expInput.companyName.trim() ||
+      expInput.position.trim() ||
+      expInput.responsibilities.trim() ||
+      expInput.datePeriod.trim()
+    ) {
+      setFormData(prev => ({
+        ...prev,
+        Experience: [...prev.Experience, expInput]
+      }));
+      setExpInput({ companyName: '', position: '', responsibilities: '', datePeriod: '' });
     }
-  ];
+  };
 
   return (
-    <form>
-      <input
-        type="text"
-        name="companyName"
-        placeholder="Company Name"
-        value={formData.Experience.companyName || ''}
-        onChange={handleChange}
-        disabled={!isEditable}
-      />
-      <input
-        type="text"
-        name="position"
-        placeholder="Position"
-        value={formData.Experience.position || ''}
-        onChange={handleChange}
-        disabled={!isEditable}
-      />
-      <input
-        type="text"
-        name="responsibilities"
-        placeholder="Responsibilities"
-        value={formData.Experience.responsibilities || ''}
-        onChange={handleChange}
-        disabled={!isEditable}
-      />
-      <input
-        name="datePeriod"
-        type="text"
-        readOnly
-        value={`${dateRange[0].startDate.toLocaleDateString()} to ${dateRange[0].endDate.toLocaleDateString()}`}
-        disabled={!isEditable}
-      />
-      {isEditable ? (
-        <DateRange onChange={handleDateChange} ranges={dateRange} />
-      ) : (
-        <div style={{ background: '#f0f0f0', borderRadius: '4px' }}>
-          {dateRange[0].startDate.toLocaleDateString()} to {dateRange[0].endDate.toLocaleDateString()}
-        </div>
-      )}
-    </form>
+    <div>
+      <form>
+        <input
+          name="companyName"
+          value={expInput.companyName}
+          onChange={handleChange}
+          placeholder="Company Name"
+          disabled={!isEditable}
+        />
+        <input
+          name="position"
+          value={expInput.position}
+          onChange={handleChange}
+          placeholder="Position"
+          disabled={!isEditable}
+        />
+        <input
+          name="responsibilities"
+          value={expInput.responsibilities}
+          onChange={handleChange}
+          placeholder="Responsibilities"
+          disabled={!isEditable}
+        />
+        <input
+          name="datePeriod"
+          value={expInput.datePeriod}
+          onChange={handleChange}
+          placeholder="Date Period"
+          disabled={!isEditable}
+        />
+      </form>
+      <button type="button" onClick={handleAddExperience} disabled={!isEditable}>
+        Add New
+      </button>
+    </div>
   );
 }
