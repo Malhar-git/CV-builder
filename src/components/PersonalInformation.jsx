@@ -21,6 +21,7 @@ export function PersonalInformation({ formData, setFormData, isEditable }) {
         placeholder="Candidate Name"
         disabled={!isEditable}
       />
+      
       <input
         name="email"
         value={formData.PersonalInformation.email || ''}

@@ -4,10 +4,16 @@ export function HeaderPreview({formData}) {
     const {PersonalInformation} = formData;
     return (
         <div id="preview-header">
-            {PersonalInformation.name && (<h1 className="font-bold text-center">{PersonalInformation.name}</h1>)}
+            {PersonalInformation.name && (
+                <h1 className="font-bold text-center">{PersonalInformation.name}</h1>
+            )}
             <div style={{display: "flex", justifyContent: "space-between", alignItems:"center"}}>
-                <div>{PersonalInformation.email}</div>
-                <div>{PersonalInformation.contactNumber}</div>
+                <div>
+                    Email{PersonalInformation.email ? `: ${PersonalInformation.email}` : ""}
+                </div>
+                <div>
+                    Phone{PersonalInformation.contactNumber ? `: ${PersonalInformation.contactNumber}` : ""}
+                </div>
             </div>
         </div>
     );
