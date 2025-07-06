@@ -11,7 +11,7 @@ export function Education({ formData, setFormData, isEditable }) {
     const { name, value } = e.target;
     setFormData(prev => {
       const updated = [...prev.Education];
-      if (updated.length === 0) updated.push({ schoolName: "", fieldOfStudy: "", date: "" });
+      if (updated.length === 0) updated.push({ schoolName: "", fieldOfStudy: "", date: "", marks: "" });
       updated[updated.length - 1] = { ...updated[updated.length - 1], [name]: value };
       return { ...prev, Education: updated };
     });
@@ -20,7 +20,7 @@ export function Education({ formData, setFormData, isEditable }) {
   const handleAddEducation = () => {
     setFormData(prev => ({
       ...prev,
-      Education: [...prev.Education, { schoolName: "", fieldOfStudy: "", date: "" }]
+      Education: [...prev.Education, { schoolName: "", fieldOfStudy: "", date: "", marks: "" }]
     }));
   };
 
@@ -28,7 +28,7 @@ export function Education({ formData, setFormData, isEditable }) {
     if (formData.Education.length === 0) {
       setFormData(prev => ({
         ...prev,
-        Education: [{ schoolName: "", fieldOfStudy: "", date: "" }]
+        Education: [{ schoolName: "", fieldOfStudy: "", date: "", marks:"" }]
       }));
     }
     // eslint-disable-next-line
@@ -56,6 +56,13 @@ export function Education({ formData, setFormData, isEditable }) {
           value={eduInput.date}
           onChange={handleChange}
           placeholder="Date of Study"
+          disabled={!isEditable}
+        />
+        <input 
+          name="marks"
+          value={eduInput.marks}
+          onChange={handleChange}
+          placeholder="marks obtained"
           disabled={!isEditable}
         />
       </form>

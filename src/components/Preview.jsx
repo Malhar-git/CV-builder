@@ -27,9 +27,16 @@ export function Preview({ formData }) {
         <h2><u>Education</u></h2>
         {Education.map((edu, idx) => (
           <div key={idx}>
-            {edu.schoolName && <b>{edu.schoolName}</b>}
+            <h3>
+              {edu.schoolName && <b>{edu.schoolName}</b>}
+              {edu.date && (
+                <span style={{ fontStyle: "italic", marginLeft: "0.5em", fontWeight: "normal" }}>
+                  {edu.date}
+                </span>
+              )}
+            </h3>
             <p>{edu.fieldOfStudy}</p>
-            <p>{edu.date}</p>
+            <p>{edu.marks}</p>
           </div>
         ))}
       </div>
@@ -37,10 +44,17 @@ export function Preview({ formData }) {
         <h2><u>Personal Experience</u></h2>
         {Experience.map((exp, idx) => (
           <div key={idx}>
-            {exp.companyName && <b>{exp.companyName}</b>}
+            <h3>
+              {exp.companyName && <b>{exp.companyName}</b>}
+              {exp.datePeriod && (
+                <span style={{fontStyle: "italic", marginLeft: "0.5rem", fontWeight: "normal"}}>
+                  {exp.datePeriod}
+                </span>
+              )}
+            </h3>
             <p>{exp.position}</p>
             <p>{exp.responsibilities}</p>
-            <p>{exp.datePeriod}</p>
+            <p>{exp.keyLearnings}</p>
           </div>
         ))}
       </div>

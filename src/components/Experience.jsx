@@ -1,31 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect} from 'react';
 
-export default function Experience({setFormData, isEditable }) {
-  const [expInput, setExpInput] = useState({
+export default function Experience({ formData, setFormData, isEditable }) {
+  const expInput = formData.Experience[formData.Experience.length - 1] || {
     companyName: '',
     position: '',
     responsibilities: '',
-    datePeriod: ''
-  });
+    datePeriod: '',
+    keyLearnings: ''
+  };
 
   const handleChange = (e) => {
-    setExpInput({ ...expInput, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData(prev => {
+      const updated = [...prev.Experience];
+      if (updated.length === 0) {
+        updated.push({ companyName: "", position: "", responsibilities: "", datePeriod: "", keyLearnings: "" });
+      }
+      updated[updated.length - 1] = { ...updated[updated.length - 1], [name]: value };
+      return { ...prev, Experience: updated };
+    });
   };
 
   const handleAddExperience = () => {
-    if (
-      expInput.companyName.trim() ||
-      expInput.position.trim() ||
-      expInput.responsibilities.trim() ||
-      expInput.datePeriod.trim()
-    ) {
-      setFormData(prev => ({
-        ...prev,
-        Experience: [...prev.Experience, expInput]
-      }));
-      setExpInput({ companyName: '', position: '', responsibilities: '', datePeriod: '' });
-    }
+    setFormData(prev =>({
+      ...prev, 
+      Experience: [...prev.Experience, {companyName: "", position: "", responsibilities: "", datePeriod: "", keyLearnings: ""}]
+    }))  
   };
+
+  useEffect(()=>{
+    if(formData.Experience.length === 0){
+      setFormData(prev =>({
+        ...prev,
+        Experience: [{companyName: "", position: "", responsibilities: "", datePeriod: "", keyLearnings: ""}]
+      }));
+    }
+  }, [formData.Experience.length, setFormData]);
 
   return (
     <div>
@@ -56,6 +66,13 @@ export default function Experience({setFormData, isEditable }) {
           value={expInput.datePeriod}
           onChange={handleChange}
           placeholder="Date Period"
+          disabled={!isEditable}
+        />
+        <input
+          name="keyLearnings"
+          value={expInput.keyLearnings}
+          onChange={handleChange}
+          placeholder='Key Learnings'
           disabled={!isEditable}
         />
       </form>
