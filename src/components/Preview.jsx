@@ -3,6 +3,7 @@ import "../App.css";
 export function HeaderPreview({formData}) {
     const {PersonalInformation} = formData;
     return (
+    
         <div id="preview-header">
             {PersonalInformation.name && (
                 <h1 className="font-bold text-center">{PersonalInformation.name}</h1>
@@ -16,6 +17,7 @@ export function HeaderPreview({formData}) {
                 </div>
             </div>
         </div>
+        
     );
 }
 
